@@ -16,6 +16,7 @@ public class GuardTestMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        agent.SetDestination(testLoc.position);
+        //agent.SetDestination(testLoc.position);
+        agent.Move(Vector3.forward);
     }
 }
