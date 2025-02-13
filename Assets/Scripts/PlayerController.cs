@@ -46,7 +46,7 @@ public class PlayerController : MonoBehaviour
         
         Vector3 moveDirectionRelCam = forwardVertInput + rightHoriInput;
 
-        rb.MovePosition(transform.position + moveDirectionRelCam * speed * Time.deltaTime);
+        rb.MovePosition(transform.position + moveDirectionRelCam * speed * Time.fixedDeltaTime);
     }
 
 }

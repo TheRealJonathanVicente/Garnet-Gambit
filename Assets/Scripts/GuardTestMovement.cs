@@ -16,21 +16,19 @@ public class GuardTestMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(firstMove == true){
-            agent.SetDestination(Loc1.position);
-        }
+    
     }
 
     // Update is called once per frame
     void Update()
     {
        // NavMeshHit hit;
+       agent.SetDestination(testLoc.position);
         
     }
 
     void OnCollisionEnter(Collision collision)
     {
-        firstMove = false;
         agent.SetDestination(Loc2.position);
     }
 
