@@ -18,27 +18,35 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Move();
+        
     }
 
     void FixedUpdate()
     {
-        
+        Move();
     }
 
     void Move()
     {
+
         float horizontalInput = Input.GetAxisRaw("Horizontal");
         float verticalInput = Input.GetAxisRaw("Vertical");
 
+        Vector3 forward = Camera.main.transform.forward;
+        Vector3 right = Camera.main.transform.right;
+        forward.y = 0;
+        right.y = 0;
+        forward = forward.normalized;
+        right = right.normalized;
+
         Vector3 moveDirection = new Vector3(horizontalInput, 0, verticalInput);
 
-        moveDirection = playerCam.transform.TransformDirection(moveDirection);
-        moveDirection.y = 0;
+        Vector3 forwardVertInput = verticalInput * forward;
+        Vector3 rightHoriInput = horizontalInput * right;
+        
+        Vector3 moveDirectionRelCam = forwardVertInput + rightHoriInput;
 
-        moveDirection.Normalize();
-
-        transform.Translate(moveDirection * speed * Time.deltaTime, Space.Self);
+        rb.MovePosition(transform.position + moveDirectionRelCam * speed * Time.deltaTime);
     }
 
 }
