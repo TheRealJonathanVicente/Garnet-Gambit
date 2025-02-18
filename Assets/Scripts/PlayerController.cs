@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviour
         right.y = 0;
         forward = forward.normalized;
         right = right.normalized;
-
+        
         Vector3 moveDirection = new Vector3(horizontalInput, 0, verticalInput);
 
         Vector3 forwardVertInput = verticalInput * forward;
