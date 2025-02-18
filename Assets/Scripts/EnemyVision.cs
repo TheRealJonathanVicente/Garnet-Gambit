@@ -37,6 +37,7 @@ public class EnemyVision : MonoBehaviour
         BehindObject();
         InAngle();
 
+        //If all true, Bool is true,
         if(isInAngle && isInRange && isNotHidden)
         {
             Debug.Log("ALL TRUE");
@@ -52,9 +53,9 @@ public class EnemyVision : MonoBehaviour
     void BehindObject()
     {
         RaycastHit hit;
-        if(Physics.Raycast(transform.position,(Player.transform.position - transform.position), out hit, Mathf.Infinity))
+        if(Physics.Raycast(transform.position,(Player.transform.position - transform.position), out hit, Mathf.Infinity))//if raycast from enemy to player 
         {
-            if(hit.transform == Player.transform)
+            if(hit.transform == Player.transform) //if hit true
             {
                 isNotHidden = true;
                 Debug.Log("Player not hidden");

@@ -770,8 +770,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d4a7c33ab49c7f49a08f5a478110e28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detectRange: 10
+  detectRange: 25
   detectAngle: 45
+  allTrue: 0
   Player: {fileID: 1125678413}
 --- !u!1 &228408603
 GameObject:
