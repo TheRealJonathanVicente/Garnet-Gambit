@@ -7,18 +7,21 @@ public class PlayerController : MonoBehaviour
     public Vector3 moveDirection;
     public Rigidbody rb;
     public Camera playerCam;
+    public Transform flashLight;
 
     public float speed = 5f;
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        RotateFlashlight();
     }
 
     void FixedUpdate()
@@ -38,7 +41,7 @@ public class PlayerController : MonoBehaviour
         right.y = 0;
         forward = forward.normalized;
         right = right.normalized;
-        
+
         Vector3 moveDirection = new Vector3(horizontalInput, 0, verticalInput);
 
         Vector3 forwardVertInput = verticalInput * forward;
@@ -47,6 +50,15 @@ public class PlayerController : MonoBehaviour
         Vector3 moveDirectionRelCam = forwardVertInput + rightHoriInput;
 
         rb.MovePosition(transform.position + moveDirectionRelCam * speed * Time.fixedDeltaTime);
+    }
+
+     void RotateFlashlight()
+    {
+        if (flashLight != null && playerCam != null)
+        {
+            // Match flashlight rotation with camera rotation
+            flashLight.rotation = Quaternion.Euler(playerCam.transform.eulerAngles.x, playerCam.transform.eulerAngles.y, 0);
+        }
     }
 
 }
