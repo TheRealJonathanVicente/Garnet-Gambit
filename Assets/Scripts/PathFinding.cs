@@ -6,7 +6,7 @@ using UnityEngine.AI;
 
 public class PathFinding : MonoBehaviour
 {
-    public NavMeshAgent agent;
+    NavMeshAgent agent;
     public Transform[] waypoints;
     private int waypointIndex;
     Vector3 target;
@@ -14,14 +14,16 @@ public class PathFinding : MonoBehaviour
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
+        waypointIndex = 0;
         UpdateDestination();
+        
         
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Vector3.Distance(transform.position, target) <= 1)
+        if(Vector3.Distance(transform.position, target) <= agent.stoppingDistance + 0.5f)
         {
             IterateIndex();
             UpdateDestination();
