@@ -129,7 +129,7 @@ GameObject:
   - component: {fileID: 1626787377746599224}
   m_Layer: 0
   m_Name: PlayerHolder
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -321,9 +321,10 @@ GameObject:
   - component: {fileID: 3465341520006147931}
   - component: {fileID: 2741376520287970700}
   - component: {fileID: 4408980031907822899}
+  - component: {fileID: 3110071126896609764}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -461,6 +462,21 @@ MonoBehaviour:
   playerCam: {fileID: 6682427013133671810}
   flashLight: {fileID: 5756036696789685484}
   speed: 10
+--- !u!114 &3110071126896609764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7156829717631670431}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edd09238acd70c944aea8a61f1cfe055, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agent: {fileID: 0}
+  guardAI: []
+  playerTarget: {fileID: 2875557372899902697}
 --- !u!1 &8444658170502571272
 GameObject:
   m_ObjectHideFlags: 0
