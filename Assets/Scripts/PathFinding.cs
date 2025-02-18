@@ -44,15 +44,15 @@ public class PathFinding : MonoBehaviour
     }
     void UpdateDestination()
     {
-        target = waypoints[waypointIndex].position;
-        agent.SetDestination(target);
+        target = waypoints[waypointIndex].position;// target destination changes based on array index
+        agent.SetDestination(target);// updates destination
         
     }
 
     void IterateIndex()
     {
         waypointIndex++;
-        if(waypointIndex == waypoints.Length) { 
+        if(waypointIndex == waypoints.Length) { //infinite cycle 
             waypointIndex = 0;
         }
     }
