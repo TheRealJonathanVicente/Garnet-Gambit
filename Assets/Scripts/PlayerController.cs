@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour
     public Transform flashLight;
 
     public float speed = 5f;
+    public float sprintSpeed = 7f;
+    public float jumpForce = 10f;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,11 +24,16 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         RotateFlashlight();
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            Jump(); // When player jumps, if they let go they stop mid air, they could keep moving forward until they hit the ground
+        }
     }
 
     void FixedUpdate()
     {
         Move();
+
     }
 
     void Move()
@@ -50,8 +57,12 @@ public class PlayerController : MonoBehaviour
         Vector3 moveDirectionRelCam = forwardVertInput + rightHoriInput;
 
         rb.MovePosition(transform.position + moveDirectionRelCam * speed * Time.fixedDeltaTime);
-    }
 
+        if(Input.GetKey(KeyCode.LeftShift))
+        {
+            rb.MovePosition(transform.position + moveDirectionRelCam * sprintSpeed * Time.fixedDeltaTime);
+        }
+    }
      void RotateFlashlight()
     {
         if (flashLight != null && playerCam != null)
@@ -59,6 +70,12 @@ public class PlayerController : MonoBehaviour
             // Match flashlight rotation with camera rotation
             flashLight.rotation = Quaternion.Euler(playerCam.transform.eulerAngles.x, playerCam.transform.eulerAngles.y, 0);
         }
+    }
+
+    void Jump()
+    {
+        Debug.Log("Is jumping");
+        rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
     }
 
 }
