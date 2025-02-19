@@ -8,10 +8,15 @@ public class PlayerController : MonoBehaviour
     public Rigidbody rb;
     public Camera playerCam;
     public Transform flashLight;
+    
+    public LayerMask groundLayer;
 
     public float speed = 5f;
     public float sprintSpeed = 7f;
     public float jumpForce = 10f;
+    public float groundDistance = 0.2f;
+    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,7 +29,8 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         RotateFlashlight();
-        if(Input.GetKeyDown(KeyCode.Space))
+        
+        if (IsGrounded() && Input.GetKeyDown(KeyCode.Space))
         {
             Jump(); // When player jumps, if they let go they stop mid air, they could keep moving forward until they hit the ground
         }
@@ -76,6 +82,11 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("Is jumping");
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+    }
+    
+    bool IsGrounded()
+    {
+        return Physics.Raycast(transform.position, Vector3.down, groundDistance, groundLayer);
     }
 
 }
