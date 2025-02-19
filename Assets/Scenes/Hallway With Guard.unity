@@ -166,7 +166,7 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.5
+  m_VoxelSize: 0.06666667
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: 8c141b9e39c921d4cac5d77ac9fa1fff, type: 2}
   m_BuildHeightMesh: 0
@@ -6022,6 +6022,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 5919058841748329393}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1125678414 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3110071126896609764, guid: 55ba643831ca3624a8d6b81e9fed18c3,
+    type: 3}
+  m_PrefabInstance: {fileID: 5919058841748329393}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1125678413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edd09238acd70c944aea8a61f1cfe055, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!43 &1133215374
 Mesh:
   m_ObjectHideFlags: 0
@@ -8665,6 +8677,31 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1125678413}
+    - target: {fileID: 6644042961182492477, guid: 5fa6dd1ee44d31f4dab2c6d942c5f62d,
+        type: 3}
+      propertyPath: waypoints.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6644042961182492477, guid: 5fa6dd1ee44d31f4dab2c6d942c5f62d,
+        type: 3}
+      propertyPath: waypoints.Array.data[0]
+      value: 
+      objectReference: {fileID: 1152322689}
+    - target: {fileID: 6644042961182492477, guid: 5fa6dd1ee44d31f4dab2c6d942c5f62d,
+        type: 3}
+      propertyPath: waypoints.Array.data[1]
+      value: 
+      objectReference: {fileID: 829151301}
+    - target: {fileID: 6644042961182492477, guid: 5fa6dd1ee44d31f4dab2c6d942c5f62d,
+        type: 3}
+      propertyPath: waypoints.Array.data[2]
+      value: 
+      objectReference: {fileID: 125162776}
+    - target: {fileID: 6644042961182492477, guid: 5fa6dd1ee44d31f4dab2c6d942c5f62d,
+        type: 3}
+      propertyPath: waypoints.Array.data[3]
+      value: 
+      objectReference: {fileID: 311173303}
     - target: {fileID: 7659389782865033150, guid: 5fa6dd1ee44d31f4dab2c6d942c5f62d,
         type: 3}
       propertyPath: m_Name
@@ -10503,10 +10540,23 @@ MonoBehaviour:
   laserDistance: 8
   ignoreMask:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 0
   OnHitTarget:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1125678414}
+        m_TargetAssemblyTypeName: Target, Assembly-CSharp
+        m_MethodName: Hit
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  agent: {fileID: 947293627}
 --- !u!4 &2025220104
 Transform:
   m_ObjectHideFlags: 0

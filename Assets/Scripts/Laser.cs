@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.AI;
 
 public class Laser : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class Laser : MonoBehaviour
     [SerializeField] private LayerMask ignoreMask;
 
     [SerializeField] private UnityEvent OnHitTarget;
+
+    public NavMeshAgent agent;
 
     private RaycastHit rayHit;
     private Ray ray;

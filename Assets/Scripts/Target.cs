@@ -28,4 +28,10 @@ public class Target : MonoBehaviour
         }
         agent.SetDestination(playerTarget.position);
    }
+
+   public void FollowPlayer()
+   {
+     agent.SetDestination(playerTarget.position);
+     Debug.Log("Can see this");
+   }
 }
