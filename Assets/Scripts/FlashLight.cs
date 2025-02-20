@@ -17,7 +17,7 @@ public class FlashLight : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Mouse0))
         {
-            fLight.SetActive(!fLight.activeSelf);
+            fLight.SetActive(!fLight.activeSelf);// togglers flashlight, True if active, flash if inactive !starts it on flash maybe?
         }
     }
 }

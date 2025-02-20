@@ -56,4 +56,8 @@ public class PathFinding : MonoBehaviour
             waypointIndex = 0;
         }
     }
+    void LaserHit()
+    {
+
+    }
 }
