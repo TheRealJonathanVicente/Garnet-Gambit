@@ -8672,6 +8672,11 @@ PrefabInstance:
       propertyPath: Player
       value: 
       objectReference: {fileID: 1125678413}
+    - target: {fileID: 6613887096654029089, guid: 5fa6dd1ee44d31f4dab2c6d942c5f62d,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6644042961182492477, guid: 5fa6dd1ee44d31f4dab2c6d942c5f62d,
         type: 3}
       propertyPath: player
@@ -10635,6 +10640,11 @@ PrefabInstance:
       propertyPath: agent
       value: 
       objectReference: {fileID: 947293627}
+    - target: {fileID: 3465341520006147931, guid: 55ba643831ca3624a8d6b81e9fed18c3,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4950302798597455751, guid: 55ba643831ca3624a8d6b81e9fed18c3,
         type: 3}
       propertyPath: m_Name
