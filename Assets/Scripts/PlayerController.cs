@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
@@ -11,16 +13,26 @@ public class PlayerController : MonoBehaviour
     
     public LayerMask groundLayer;
 
+    public Image staminaBar;
+    public float stamina, maxStamina;
+    public float runCost;
+    public float chargeRate;
+
     public float speed = 5f;
     public float sprintSpeed = 7f;
     public float jumpForce = 10f;
     public float groundDistance = 0.2f;
+
+    private Coroutine recharge;
+    public TextMeshProUGUI speedText;
+    private Vector3 lastPosition;
     
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        lastPosition = rb.position;
         
         
     }
@@ -34,11 +46,17 @@ public class PlayerController : MonoBehaviour
         {
             Jump(); // When player jumps, if they let go they stop mid air, they could keep moving forward until they hit the ground
         }
+
     }
 
     void FixedUpdate()
     {
         Move();
+
+        float tempSpeed = ((rb.position - lastPosition).magnitude) / Time.fixedDeltaTime;
+        lastPosition = rb.position;
+
+        speedText.text = "Speed: " + tempSpeed.ToString("F2");
 
     }
 
@@ -64,9 +82,20 @@ public class PlayerController : MonoBehaviour
 
         rb.MovePosition(transform.position + moveDirectionRelCam * speed * Time.fixedDeltaTime);
 
-        if(Input.GetKey(KeyCode.LeftShift))
+        if(Input.GetKey(KeyCode.LeftShift) && stamina > 0)
         {
             rb.MovePosition(transform.position + moveDirectionRelCam * sprintSpeed * Time.fixedDeltaTime);
+
+            stamina -= runCost * Time.deltaTime; //scales stamina - runcost porpotionally over time, every 1 second runCost will be substracted
+            if(stamina < 0){
+                stamina = 0;
+            }
+            staminaBar.fillAmount = stamina / maxStamina;
+
+            if(recharge != null){
+                StopCoroutine(recharge);
+            }
+            recharge = StartCoroutine(RechargeStamina());
         }
     }
      void RotateFlashlight()
@@ -87,6 +116,19 @@ public class PlayerController : MonoBehaviour
     bool IsGrounded()
     {
         return Physics.Raycast(transform.position, Vector3.down, groundDistance, groundLayer);
+    }
+
+    private IEnumerator RechargeStamina(){
+        yield return new WaitForSeconds(1f);
+        while(stamina < maxStamina)
+        {
+            stamina += chargeRate / 10f;
+            if(stamina > maxStamina){
+                stamina = maxStamina;
+            }
+            staminaBar.fillAmount = stamina / maxStamina;
+            yield return new WaitForSeconds(.1f);
+        }
     }
 
 }
