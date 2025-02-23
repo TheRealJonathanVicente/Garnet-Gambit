@@ -186,6 +186,18 @@ Transform:
   - {fileID: 2018227895}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &70011954 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4610655364819988277, guid: 5fa6dd1ee44d31f4dab2c6d942c5f62d,
+    type: 3}
+  m_PrefabInstance: {fileID: 1473161256}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &89357622 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4610655364819988277, guid: 5fa6dd1ee44d31f4dab2c6d942c5f62d,
+    type: 3}
+  m_PrefabInstance: {fileID: 6562048835547621136}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &117306972
 GameObject:
   m_ObjectHideFlags: 0
@@ -9005,6 +9017,17 @@ PrefabInstance:
       objectReference: {fileID: 1125678413}
     - target: {fileID: 6644042961182492477, guid: 5fa6dd1ee44d31f4dab2c6d942c5f62d,
         type: 3}
+      propertyPath: noticeMark
+      value: 
+      objectReference: {fileID: 3851027827849859424, guid: 925fe0ed04883dd4dae5fe99861a839a,
+        type: 3}
+    - target: {fileID: 6644042961182492477, guid: 5fa6dd1ee44d31f4dab2c6d942c5f62d,
+        type: 3}
+      propertyPath: childTransform
+      value: 
+      objectReference: {fileID: 70011954}
+    - target: {fileID: 6644042961182492477, guid: 5fa6dd1ee44d31f4dab2c6d942c5f62d,
+        type: 3}
       propertyPath: waypoints.Array.size
       value: 4
       objectReference: {fileID: 0}
@@ -11267,18 +11290,33 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1626787377746599224, guid: 55ba643831ca3624a8d6b81e9fed18c3,
         type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.86998
+      objectReference: {fileID: 0}
+    - target: {fileID: 1626787377746599224, guid: 55ba643831ca3624a8d6b81e9fed18c3,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.86998
+      objectReference: {fileID: 0}
+    - target: {fileID: 1626787377746599224, guid: 55ba643831ca3624a8d6b81e9fed18c3,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.86998
+      objectReference: {fileID: 0}
+    - target: {fileID: 1626787377746599224, guid: 55ba643831ca3624a8d6b81e9fed18c3,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: -132.5
       objectReference: {fileID: 0}
     - target: {fileID: 1626787377746599224, guid: 55ba643831ca3624a8d6b81e9fed18c3,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.68
+      value: -0.20932
       objectReference: {fileID: 0}
     - target: {fileID: 1626787377746599224, guid: 55ba643831ca3624a8d6b81e9fed18c3,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -169.2
+      value: 35.5
       objectReference: {fileID: 0}
     - target: {fileID: 1626787377746599224, guid: 55ba643831ca3624a8d6b81e9fed18c3,
         type: 3}
@@ -11325,6 +11363,16 @@ PrefabInstance:
       propertyPath: m_IsTrigger
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4358149743868140662, guid: 55ba643831ca3624a8d6b81e9fed18c3,
+        type: 3}
+      propertyPath: batteryBar
+      value: 
+      objectReference: {fileID: 1408690797}
+    - target: {fileID: 4408980031907822899, guid: 55ba643831ca3624a8d6b81e9fed18c3,
+        type: 3}
+      propertyPath: speed
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 4408980031907822899, guid: 55ba643831ca3624a8d6b81e9fed18c3,
         type: 3}
       propertyPath: RunCost
@@ -11360,6 +11408,11 @@ PrefabInstance:
       propertyPath: staminaBar
       value: 
       objectReference: {fileID: 1779743768}
+    - target: {fileID: 4408980031907822899, guid: 55ba643831ca3624a8d6b81e9fed18c3,
+        type: 3}
+      propertyPath: sprintSpeed
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 4950302798597455751, guid: 55ba643831ca3624a8d6b81e9fed18c3,
         type: 3}
       propertyPath: m_Name
@@ -11413,6 +11466,11 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1125678413}
+    - target: {fileID: 6644042961182492477, guid: 5fa6dd1ee44d31f4dab2c6d942c5f62d,
+        type: 3}
+      propertyPath: childTransform
+      value: 
+      objectReference: {fileID: 89357622}
     - target: {fileID: 6644042961182492477, guid: 5fa6dd1ee44d31f4dab2c6d942c5f62d,
         type: 3}
       propertyPath: waypoints.Array.data[0]
