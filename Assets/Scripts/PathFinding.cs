@@ -12,8 +12,11 @@ public class PathFinding : MonoBehaviour
     private int waypointIndex;
     Vector3 target;
     public GameObject player;
+    public GameObject noticeMark;
+    public Transform childTransform;
 
     private EnemyVision enemyVision;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -33,6 +36,7 @@ public class PathFinding : MonoBehaviour
         if (enemyVision.allTrue)
         {
             agent.SetDestination(player.transform.position);
+            Instantiate(noticeMark, childTransform.position, Quaternion.identity);
             return; // Skip further execution to avoid conflicting movements
         }
         
