@@ -6,6 +6,7 @@ public class McGuffin : MonoBehaviour, IInteractable
 {
     public GameObject Item;
     private bool hasItem = false;
+    public AudioSource mcGuffinSound;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,6 +20,7 @@ public class McGuffin : MonoBehaviour, IInteractable
     }
     public void Interact()
     {
+        mcGuffinSound.Play();
         Debug.Log("Found the McGuffin!");
         hasItem = true;
         Item.SetActive(false);

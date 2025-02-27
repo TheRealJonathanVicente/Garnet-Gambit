@@ -13,6 +13,7 @@ public class FlashLight : MonoBehaviour
     //public float chargeRate;
 
     public bool replaceBattery = false;
+    public AudioSource source;
 
     // Start is called before the first frame update
     void Start()
@@ -26,6 +27,7 @@ public class FlashLight : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Mouse0) && !replaceBattery)
         {
             fLight.SetActive(!fLight.activeSelf);// togglers flashlight, True if active, flash if inactive !starts it on flash maybe?
+            source.Play(0);
         }
          if(fLight.activeSelf)
             {

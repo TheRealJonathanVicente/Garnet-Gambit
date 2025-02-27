@@ -26,6 +26,8 @@ public class PlayerController : MonoBehaviour
     private Coroutine recharge;
     public TextMeshProUGUI speedText;
     private Vector3 lastPosition;
+
+    public AudioSource playerAudioSource; 
     
 
     // Start is called before the first frame update
@@ -81,6 +83,22 @@ public class PlayerController : MonoBehaviour
         Vector3 moveDirectionRelCam = forwardVertInput + rightHoriInput;
 
         rb.MovePosition(transform.position + moveDirectionRelCam * speed * Time.fixedDeltaTime);
+
+        if(moveDirectionRelCam.magnitude > 0)
+        {
+            if(!playerAudioSource.isPlaying)
+            {
+                playerAudioSource.Play();
+            }
+        }
+        else
+        {
+            if(playerAudioSource.isPlaying)
+            {
+                playerAudioSource.Stop();
+            }
+        }
+        
 
         if(Input.GetKey(KeyCode.LeftShift) && stamina > 0)
         {
