@@ -12,8 +12,12 @@ public class PathFinding : MonoBehaviour
     private int waypointIndex;
     Vector3 target;
     public GameObject player;
+    public GameObject noticeMark;
+    public Transform childTransform;
+    public Animator anim;
 
     private EnemyVision enemyVision;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -32,9 +36,20 @@ public class PathFinding : MonoBehaviour
         // If enemy sees player, chase the player
         if (enemyVision.allTrue)
         {
+            //play notice mark above guard head
             agent.SetDestination(player.transform.position);
+           // GameObject newObject Instantiate(noticeMark, childTransform.position, Quaternion.identity); //make coroutine once alltrue = true, spawn exclamation, wait for 1 seconds, destroy it , wait for seconds (?) change detected to false 
             return; // Skip further execution to avoid conflicting movements
         }
+      /*  else if(enemyVision.isInRange && enemyVision.allTrue == false)
+        {
+            agent.isStopped = true;
+            StartCoroutine(DetectedAttack());
+
+        }*/
+        
+
+
         
         if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
         {
@@ -55,5 +70,11 @@ public class PathFinding : MonoBehaviour
         if(waypointIndex == waypoints.Length) { //infinite cycle 
             waypointIndex = 0;
         }
+    }
+    IEnumerator DetectedAttack()
+    {
+        anim.SetTrigger("Detected");
+        yield return new WaitForSeconds(1);
+        Quaternion lookRotation = Quaternion.LookRotation(player.transform.position);
     }
 }

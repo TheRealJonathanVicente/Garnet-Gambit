@@ -7,7 +7,7 @@ public class EnemyVision : MonoBehaviour
     public float detectRange = 10;
     public float detectAngle = 45f;
 
-    bool isInAngle, isInRange, isNotHidden;
+    public bool isInAngle, isInRange, isNotHidden;
     public bool allTrue;
 
     public GameObject Player;
