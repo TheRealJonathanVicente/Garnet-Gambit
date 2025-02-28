@@ -6,28 +6,34 @@ using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
-    public Vector3 moveDirection;
-    public Rigidbody rb;
-    public Camera playerCam;
-    public Transform flashLight;
-    
-    public LayerMask groundLayer;
+    private Vector3 moveDirection; //might need to make public
 
+    
+
+    [Header ("Hud Settings")]
     public Image staminaBar;
     public float stamina, maxStamina;
     public float runCost;
     public float chargeRate;
-
+    private Coroutine recharge;
+    
+    [Header ("Movement Settings")]
     public float speed = 5f;
     public float sprintSpeed = 7f;
     public float jumpForce = 10f;
-    public float groundDistance = 0.2f;
 
-    private Coroutine recharge;
+    [Header ("References")]
+    public Rigidbody rb;
+    public Camera playerCam;
+    public Transform flashLight;
     public TextMeshProUGUI speedText;
+    public AudioSource playerAudioSource; 
+
     private Vector3 lastPosition;
 
-    public AudioSource playerAudioSource; 
+    [Header ("Ground settings")]
+    public LayerMask groundLayer;
+    public float groundDistance = 0.2f;
     
 
     // Start is called before the first frame update
