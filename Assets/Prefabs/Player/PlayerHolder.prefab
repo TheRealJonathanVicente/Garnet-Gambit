@@ -486,9 +486,10 @@ MonoBehaviour:
   chargeRate: 33
   speed: 1
   sprintSpeed: 1.7
-  jumpForce: 20
-  groundDistance: 0.69
+  jumpForce: 13
+  groundDistance: 0.28
   speedText: {fileID: 0}
+  playerAudioSource: {fileID: 0}
 --- !u!114 &3110071126896609764
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -615,6 +616,7 @@ MonoBehaviour:
   maxBatteryLife: 100
   burnCost: 5.5
   replaceBattery: 0
+  source: {fileID: 0}
 --- !u!4 &8831920927716539593 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 21595b538ac2b8b4390a035d39ce45d8,
