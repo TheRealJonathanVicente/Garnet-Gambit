@@ -270,7 +270,7 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
+  m_RenderPostProcessing: 1
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
@@ -303,10 +303,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8a4c2cc1b1810c4b93835a4381f613b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  x: 0
-  y: 0
-  sensitivity: 2
-  turn: {x: 0, y: 0}
+  mouseSensitivity: 0.1
+  controllerSensitivity: 300
   player: {fileID: 2875557372899902697}
 --- !u!114 &7637012420879003498
 MonoBehaviour:
@@ -337,6 +335,7 @@ GameObject:
   - component: {fileID: 2741376520287970700}
   - component: {fileID: 4408980031907822899}
   - component: {fileID: 8318183235015139246}
+  - component: {fileID: 6849595697429192855}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -488,7 +487,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 256
-  groundDistance: 0.28
+  groundDistance: 0.69
 --- !u!82 &8318183235015139246
 AudioSource:
   m_ObjectHideFlags: 0
@@ -585,6 +584,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &6849595697429192855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7156829717631670431}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b01b03ed8dae0324298184acb16d0bdd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &9015063198970977058
 PrefabInstance:
   m_ObjectHideFlags: 0
