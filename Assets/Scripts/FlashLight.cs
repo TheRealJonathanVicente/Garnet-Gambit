@@ -2,45 +2,68 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 public class FlashLight : MonoBehaviour
 {
     public GameObject fLight;
-
     public Image batteryBar;
+    
     public float batteryLife, maxBatteryLife;
     public float burnCost;
-    //public float chargeRate;
-
     public bool replaceBattery = false;
+    
     public AudioSource source;
+    private PlayerControls controls;
+    private bool isFlashlightOn = false; // Track flashlight state
 
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        
+        controls = new PlayerControls();
+
+        // Bind flashlight toggle event
+        controls.Gameplay.Flashlight.performed += ctx => ToggleFlash();
     }
 
-    // Update is called once per frame
+    void OnEnable()
+    {
+        controls.Gameplay.Enable();
+    }
+
+    void OnDisable()
+    {
+        controls.Gameplay.Disable();
+    }
+
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Mouse0) && !replaceBattery)
+         if (Input.GetKeyDown(KeyCode.Mouse0)) 
         {
-            fLight.SetActive(!fLight.activeSelf);// togglers flashlight, True if active, flash if inactive !starts it on flash maybe?
-            source.Play(0);
+            ToggleFlash();
         }
-         if(fLight.activeSelf)
-            {
-                batteryLife -= burnCost * Time.deltaTime;
-                if(batteryLife < 0){
-                    batteryLife = 0;
-                    replaceBattery = true; 
-                }
-            }
-            batteryBar.fillAmount = batteryLife / maxBatteryLife;
-        if(replaceBattery)
+        // Reduce battery only if flashlight is on
+        if (isFlashlightOn)
         {
-            fLight.SetActive(false);
+            batteryLife -= burnCost * Time.deltaTime;
+            if (batteryLife <= 0)
+            {
+                batteryLife = 0;
+                replaceBattery = true;
+                fLight.SetActive(false);
+                isFlashlightOn = false;
+            }
+        }
+
+        batteryBar.fillAmount = batteryLife / maxBatteryLife;
+    }
+
+    public void ToggleFlash()
+    {
+        if (!replaceBattery) 
+        {
+            isFlashlightOn = !isFlashlightOn;
+            fLight.SetActive(isFlashlightOn);
+            source.Play();
         }
     }
 }

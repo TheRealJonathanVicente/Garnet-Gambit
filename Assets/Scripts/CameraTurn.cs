@@ -1,26 +1,48 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class CameraTurn : MonoBehaviour
 {
-    public float x;
-    public float y;
-    public float sensitivity = 2.0f;
+    [Header("Sensitivity Settings")]
+    public float mouseSensitivity = 2.0f;
+    public float controllerSensitivity = 100f; // Controller needs a higher value for smooth movement
 
-    public Vector2 turn;
     public Transform player;
+
+    private PlayerControls controls;
+    private Vector2 lookInput;
+    private float xRotation = 0f;
 
     private float min = 80f;
     private float max = 80f;
-    // Start is called before the first frame update
+
+    void Awake()
+    {
+        controls = new PlayerControls();
+
+        // Assign camera look input (Mouse & Right Stick)
+        controls.Gameplay.Look.performed += ctx => lookInput = ctx.ReadValue<Vector2>();
+        controls.Gameplay.Look.canceled += ctx => lookInput = Vector2.zero;
+    }
+
+    void OnEnable()
+    {
+        controls.Gameplay.Enable();
+    }
+
+    void OnDisable()
+    {
+        controls.Gameplay.Disable();
+    }
+
     void Start()
     {
-        Cursor.visible = false; 
+        Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
     }
 
-    // Update is called once per frame
     void Update()
     {
         TurnScreen();
@@ -28,12 +50,25 @@ public class CameraTurn : MonoBehaviour
 
     void TurnScreen()
     {
-        turn.x += Input.GetAxis("Mouse X") * sensitivity;
-        turn.y += Input.GetAxis("Mouse Y") * sensitivity;
+        float mouseX, mouseY;
 
-        turn.y = Mathf.Clamp(turn.y, -min, max); //Clamps y so it stays in min max bounds
+        if (Gamepad.current != null && Gamepad.current.rightStick.ReadValue().magnitude > 0)
+        {
+            // If using a controller, apply controller sensitivity
+            mouseX = lookInput.x * controllerSensitivity * Time.deltaTime;
+            mouseY = lookInput.y * controllerSensitivity * Time.deltaTime;
+        }
+        else
+        {
+            // If using a mouse, apply mouse sensitivity
+            mouseX = lookInput.x * mouseSensitivity;
+            mouseY = lookInput.y * mouseSensitivity;
+        }
 
-        player.rotation = Quaternion.Euler(0,turn.x,0);
-        transform.localRotation = Quaternion.Euler(-turn.y, turn.x, 0);
+        xRotation -= mouseY;
+        xRotation = Mathf.Clamp(xRotation, -min, max); // Limit vertical rotation
+
+        player.rotation *= Quaternion.Euler(0, mouseX, 0);
+        transform.localRotation = Quaternion.Euler(xRotation, 0, 0);
     }
 }
