@@ -99,7 +99,11 @@ public class PlayerController : MonoBehaviour
         Vector3 moveDirectionRelCam = (forward * verticalInput + right * horizontalInput).normalized;
 
         float currentSpeed = isSprinting && stamina > 0 ? sprintSpeed : speed;
-        rb.MovePosition(transform.position + moveDirectionRelCam * currentSpeed * Time.fixedDeltaTime);
+        
+       // rb.MovePosition(transform.position + moveDirectionRelCam * currentSpeed * Time.fixedDeltaTime);
+       Vector3 targetPosition = transform.position + moveDirectionRelCam * currentSpeed * Time.fixedDeltaTime;
+
+       transform.position = Vector3.Lerp(transform.position, targetPosition, 0.1f); // 0.1f is the smoothing factor, can be adjusted
 
         if (moveDirectionRelCam.magnitude > 0)
         {

@@ -8,11 +8,13 @@ public class CameraTurn : MonoBehaviour
     [Header("Sensitivity Settings")]
     public float mouseSensitivity = 2.0f;
     public float controllerSensitivity = 100f; // Controller needs a higher value for smooth movement
+    public float smoothing = 5f; // Smoothing factor for input
 
     public Transform player;
 
     private PlayerControls controls;
     private Vector2 lookInput;
+    private Vector2 currentLookInput;
     private float xRotation = 0f;
 
     private float min = 80f;
@@ -43,20 +45,21 @@ public class CameraTurn : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
     }
 
-    void Update()
+    void FixedUpdate()
     {
-        TurnScreen();
+        SmoothTurnScreen();
     }
 
-    void TurnScreen()
+    void SmoothTurnScreen()
     {
         float mouseX, mouseY;
 
+        // Check if using controller
         if (Gamepad.current != null && Gamepad.current.rightStick.ReadValue().magnitude > 0)
         {
             // If using a controller, apply controller sensitivity
-            mouseX = lookInput.x * controllerSensitivity * Time.deltaTime;
-            mouseY = lookInput.y * controllerSensitivity * Time.deltaTime;
+            mouseX = lookInput.x * controllerSensitivity * Time.fixedDeltaTime;
+            mouseY = lookInput.y * controllerSensitivity * Time.fixedDeltaTime;
         }
         else
         {
@@ -65,10 +68,16 @@ public class CameraTurn : MonoBehaviour
             mouseY = lookInput.y * mouseSensitivity;
         }
 
-        xRotation -= mouseY;
-        xRotation = Mathf.Clamp(xRotation, -min, max); // Limit vertical rotation
+        // Smooth the input using Lerp for both mouse and controller inputs
+        currentLookInput.x = Mathf.Lerp(currentLookInput.x, mouseX, smoothing * Time.fixedDeltaTime);
+        currentLookInput.y = Mathf.Lerp(currentLookInput.y, mouseY, smoothing * Time.fixedDeltaTime);
 
-        player.rotation *= Quaternion.Euler(0, mouseX, 0);
+        // Rotate the player body on the Y-axis only (left/right movement)
+        player.Rotate(Vector3.up * currentLookInput.x);
+
+        // Rotate the camera on the X-axis (up/down movement)
+        xRotation -= currentLookInput.y;
+        xRotation = Mathf.Clamp(xRotation, -min, max); // Limit vertical rotation
         transform.localRotation = Quaternion.Euler(xRotation, 0, 0);
     }
 }
