@@ -6,16 +6,12 @@ using UnityEngine.AI;
 
 public class Laser : MonoBehaviour
 {
-
     [SerializeField] private LineRenderer lineRenderer;
-
     [SerializeField] private float laserDistance = 8f;
-
     [SerializeField] private LayerMask ignoreMask;
+    [SerializeField] private UnityEvent OnHitPlayer;
 
-    [SerializeField] private UnityEvent OnHitTarget;
-
-    public NavMeshAgent agent;
+    public Transform player; // Reference to the player's position
 
     private RaycastHit rayHit;
     private Ray ray;
@@ -25,21 +21,21 @@ public class Laser : MonoBehaviour
         lineRenderer.positionCount = 2;
     }
 
-    // Update is called once per frame
     private void Update()
     {
-        ray = new(transform.position, transform.forward);
+        ray = new Ray(transform.position, transform.forward);
 
-        if(Physics.Raycast(ray, out rayHit, laserDistance, ~ignoreMask))
+        if (Physics.Raycast(ray, out rayHit, laserDistance, ~ignoreMask))
         {
             lineRenderer.SetPosition(0, transform.position);
             lineRenderer.SetPosition(1, rayHit.point);
-            if(rayHit.collider.TryGetComponent(out Target target))
-            {
-                target.Hit();
-                OnHitTarget?.Invoke();
-            }
 
+            // If the laser hits the player, alert all enemies
+            if (rayHit.collider.CompareTag("Player"))
+            {
+                OnHitPlayer?.Invoke();
+                AlertAllEnemies();
+            }
         }
         else
         {
@@ -48,12 +44,16 @@ public class Laser : MonoBehaviour
         }
     }
 
-    private void OnDrawGizmos()
+    private void AlertAllEnemies()
     {
-        Gizmos.color = Color.magenta;
-        Gizmos.DrawRay(transform.position, ray.direction * laserDistance);
+        NavMeshAgent[] enemies = FindObjectsOfType<NavMeshAgent>();
 
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(rayHit.point, 0.23f);
+        foreach (NavMeshAgent agent in enemies)
+        {
+            if (agent.CompareTag("Guard")) // Ensure only enemies are affected
+            {
+                agent.SetDestination(player.position);
+            }
+        }
     }
 }
