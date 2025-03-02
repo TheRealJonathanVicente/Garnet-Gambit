@@ -111,7 +111,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            if (playerAudioSource.isPlaying) playerAudioSource.Stop();
+            if (playerAudioSource.isPlaying) playerAudioSource.Stop(); 
         }
 
         // Sprint logic
