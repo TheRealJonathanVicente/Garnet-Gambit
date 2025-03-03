@@ -6,11 +6,13 @@ public class EnemyVision : MonoBehaviour
 {
     public float detectRange = 10;
     public float detectAngle = 45f;
+    public GameObject Player;
 
+
+    [Header ("Bools")]
     public bool isInAngle, isInRange, isNotHidden;
     public bool allTrue;
 
-    public GameObject Player;
     // Start is called before the first frame update
     void Start()
     {
@@ -87,6 +89,7 @@ public class EnemyVision : MonoBehaviour
         }
 
     }
+    
     void OnDrawGizmos()
 {
     // Set Gizmo color

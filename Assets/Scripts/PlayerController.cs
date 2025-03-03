@@ -1,52 +1,78 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
-    public Vector3 moveDirection;
-    public Rigidbody rb;
-    public Camera playerCam;
-    public Transform flashLight;
+    private Vector3 moveDirection;
+    private PlayerControls controls; // New Input System
     
-    public LayerMask groundLayer;
-
+    [Header("Hud Settings")]
     public Image staminaBar;
     public float stamina, maxStamina;
     public float runCost;
     public float chargeRate;
+    private Coroutine recharge;
 
+    [Header("Movement Settings")]
     public float speed = 5f;
     public float sprintSpeed = 7f;
     public float jumpForce = 10f;
+
+    [Header("References")]
+    public Rigidbody rb;
+    public Camera playerCam;
+    public Transform flashLight;
+    public TextMeshProUGUI speedText;
+    public AudioSource playerAudioSource;
+
+    private Vector3 lastPosition;
+    private Vector2 movementInput; // Stores movement direction from Input System
+    private bool isJumping;
+    private bool isSprinting;
+
+    [Header("Ground settings")]
+    public LayerMask groundLayer;
     public float groundDistance = 0.2f;
 
-    private Coroutine recharge;
-    public TextMeshProUGUI speedText;
-    private Vector3 lastPosition;
-    
-
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        lastPosition = rb.position;
-        
-        
+        controls = new PlayerControls(); // Initialize PlayerControls
+
+        // Assign movement input
+        controls.Gameplay.Movement.performed += ctx => movementInput = ctx.ReadValue<Vector2>();
+        controls.Gameplay.Movement.canceled += ctx => movementInput = Vector2.zero;
+
+        // Jump input
+        controls.Gameplay.Jump.performed += ctx => isJumping = true;
+        controls.Gameplay.Jump.canceled += ctx => isJumping = false;
+
+        // Sprint input (Works for Left Shift & Controller LT/L2)
+        controls.Gameplay.Sprint.performed += ctx => isSprinting = true;
+        controls.Gameplay.Sprint.canceled += ctx => isSprinting = false;
     }
 
-    // Update is called once per frame
+    void OnEnable()
+    {
+        controls.Gameplay.Enable();
+    }
+
+    void OnDisable()
+    {
+        controls.Gameplay.Disable();
+    }
+
     void Update()
     {
         RotateFlashlight();
-        
-        if (IsGrounded() && Input.GetKeyDown(KeyCode.Space))
+        if (IsGrounded() && isJumping)
         {
-            Jump(); // When player jumps, if they let go they stop mid air, they could keep moving forward until they hit the ground
+            Jump();
         }
-
     }
 
     void FixedUpdate()
@@ -55,80 +81,79 @@ public class PlayerController : MonoBehaviour
 
         float tempSpeed = ((rb.position - lastPosition).magnitude) / Time.fixedDeltaTime;
         lastPosition = rb.position;
-
         speedText.text = "Speed: " + tempSpeed.ToString("F2");
-
     }
 
     void Move()
     {
-
-        float horizontalInput = Input.GetAxisRaw("Horizontal");
-        float verticalInput = Input.GetAxisRaw("Vertical");
+        float horizontalInput = movementInput.x;
+        float verticalInput = movementInput.y;
 
         Vector3 forward = Camera.main.transform.forward;
         Vector3 right = Camera.main.transform.right;
         forward.y = 0;
         right.y = 0;
-        forward = forward.normalized;
-        right = right.normalized;
+        forward.Normalize();
+        right.Normalize();
 
-        Vector3 moveDirection = new Vector3(horizontalInput, 0, verticalInput);
+        Vector3 moveDirectionRelCam = (forward * verticalInput + right * horizontalInput).normalized;
 
-        Vector3 forwardVertInput = verticalInput * forward;
-        Vector3 rightHoriInput = horizontalInput * right;
+        float currentSpeed = isSprinting && stamina > 0 ? sprintSpeed : speed;
         
-        Vector3 moveDirectionRelCam = forwardVertInput + rightHoriInput;
+       // rb.MovePosition(transform.position + moveDirectionRelCam * currentSpeed * Time.fixedDeltaTime);
+       Vector3 targetPosition = transform.position + moveDirectionRelCam * currentSpeed * Time.fixedDeltaTime;
 
-        rb.MovePosition(transform.position + moveDirectionRelCam * speed * Time.fixedDeltaTime);
+       transform.position = Vector3.Lerp(transform.position, targetPosition, 0.1f); // 0.1f is the smoothing factor, can be adjusted
 
-        if(Input.GetKey(KeyCode.LeftShift) && stamina > 0)
+        if (moveDirectionRelCam.magnitude > 0)
         {
-            rb.MovePosition(transform.position + moveDirectionRelCam * sprintSpeed * Time.fixedDeltaTime);
+            if (!playerAudioSource.isPlaying) playerAudioSource.Play();
+        }
+        else
+        {
+            if (playerAudioSource.isPlaying) playerAudioSource.Stop(); 
+        }
 
-            stamina -= runCost * Time.deltaTime; //scales stamina - runcost porpotionally over time, every 1 second runCost will be substracted
-            if(stamina < 0){
-                stamina = 0;
-            }
+        // Sprint logic
+        if (isSprinting && stamina > 0)
+        {
+            stamina -= runCost * Time.deltaTime;
+            if (stamina < 0) stamina = 0;
             staminaBar.fillAmount = stamina / maxStamina;
 
-            if(recharge != null){
-                StopCoroutine(recharge);
-            }
+            if (recharge != null) StopCoroutine(recharge);
             recharge = StartCoroutine(RechargeStamina());
         }
     }
-     void RotateFlashlight()
+
+    void RotateFlashlight()
     {
         if (flashLight != null && playerCam != null)
         {
-            // Match flashlight rotation with camera rotation
             flashLight.rotation = Quaternion.Euler(playerCam.transform.eulerAngles.x, playerCam.transform.eulerAngles.y, 0);
         }
     }
 
     void Jump()
     {
-        Debug.Log("Is jumping");
-        rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+        Debug.Log("Jumping");
+        rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
     }
-    
+
     bool IsGrounded()
     {
         return Physics.Raycast(transform.position, Vector3.down, groundDistance, groundLayer);
     }
 
-    private IEnumerator RechargeStamina(){
+    private IEnumerator RechargeStamina()
+    {
         yield return new WaitForSeconds(1f);
-        while(stamina < maxStamina)
+        while (stamina < maxStamina)
         {
             stamina += chargeRate / 10f;
-            if(stamina > maxStamina){
-                stamina = maxStamina;
-            }
+            if (stamina > maxStamina) stamina = maxStamina;
             staminaBar.fillAmount = stamina / maxStamina;
-            yield return new WaitForSeconds(.1f);
+            yield return new WaitForSeconds(0.1f);
         }
     }
-
 }

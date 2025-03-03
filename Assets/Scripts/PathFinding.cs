@@ -6,17 +6,30 @@ using UnityEngine.AI;
 
 public class PathFinding : MonoBehaviour
 {
-    NavMeshAgent agent;
-    Collider agentCol;
-    public Transform[] waypoints;
-    private int waypointIndex;
-    Vector3 target;
+    [Header("References")]
+    public AudioSource guardAudio;
     public GameObject player;
     public GameObject noticeMark;
     public Transform childTransform;
     public Animator anim;
 
+    [Header("Waypoints")]
+    public Transform[] waypoints;
+
+
+    NavMeshAgent agent;
+    Collider agentCol;
+    Vector3 target;
+
+    private int waypointIndex;
+    
+
     private EnemyVision enemyVision;
+
+    private GameObject newObject;
+    private int tempMark = 0;
+    private bool hasDetected = false;
+
     
     // Start is called before the first frame update
     void Start()
@@ -36,19 +49,22 @@ public class PathFinding : MonoBehaviour
         // If enemy sees player, chase the player
         if (enemyVision.allTrue)
         {
-            //play notice mark above guard head
+            if(!hasDetected)// run coroutine only when player first enters vision
+            {
+                hasDetected = true;
+                anim.SetTrigger("Detected");
+                StartCoroutine(DetectedAttack());
+            }
+            
             agent.SetDestination(player.transform.position);
-           // GameObject newObject Instantiate(noticeMark, childTransform.position, Quaternion.identity); //make coroutine once alltrue = true, spawn exclamation, wait for 1 seconds, destroy it , wait for seconds (?) change detected to false 
-            return; // Skip further execution to avoid conflicting movements
         }
-      /*  else if(enemyVision.isInRange && enemyVision.allTrue == false)
+        else if(!enemyVision.isInAngle)
         {
-            agent.isStopped = true;
-            StartCoroutine(DetectedAttack());
-
-        }*/
-        
-
+            if(hasDetected)
+            {
+                hasDetected = false; // Resets detection when player leaves vision   
+            }
+        }
 
         
         if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
@@ -71,10 +87,26 @@ public class PathFinding : MonoBehaviour
             waypointIndex = 0;
         }
     }
+
+    
     IEnumerator DetectedAttack()
     {
-        anim.SetTrigger("Detected");
-        yield return new WaitForSeconds(1);
-        Quaternion lookRotation = Quaternion.LookRotation(player.transform.position);
+        agent.isStopped = true; 
+
+        if(tempMark == 0)
+        {
+       
+         newObject = Instantiate(noticeMark, childTransform.position, Quaternion.identity); 
+         guardAudio.Play();
+         newObject.transform.SetParent(childTransform);
+         tempMark++;   
+         Destroy(newObject, 1.8f);
+        }
+
+        yield return new WaitForSeconds(1.8f);
+
+        agent.isStopped = false;
+        tempMark = 0;
     }
+
 }
