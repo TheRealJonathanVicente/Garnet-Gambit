@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     public GameObject mainPlayer;
 
     public int amountOfGuards;
-   // private List <GameObjects> guardList;  fix
+   
     public Transform[] newPoints;
     void Awake()
     {
@@ -48,13 +48,9 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("Credits");
     }
 
-   /* public void SpawnGuard()
+    public void SpawnGuard()
     {
-        List <GameObject> guardList = new List <GameObject>()
-        {
-            GameObject tempObject = Instantiate(guardPrefab, spawnPosition.position, Quaternion.identity);
-        }
-        //GameObject tempObject = Instantiate(guardPrefab, spawnPosition.position, Quaternion.identity);
+        GameObject tempObject = Instantiate(guardPrefab, spawnPosition.position, Quaternion.identity);
 
         PathFinding path = tempObject.GetComponent<PathFinding>();
         EnemyVision vision = tempObject.GetComponent<EnemyVision>();
@@ -71,5 +67,5 @@ public class GameManager : MonoBehaviour
         {
             vision.Player = mainPlayer;
         }
-    }*/
+    }
 }
