@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Hallway With Guard.unity
     guid: 65a9decf16454114f9b0142c0bb01706
+  - enabled: 1
+    path: Assets/Scenes/GameOver.unity
+    guid: 50a0723794c47e14abcdd6be1867f716
   m_configObjects: {}
