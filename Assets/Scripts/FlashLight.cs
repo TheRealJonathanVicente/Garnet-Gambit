@@ -40,10 +40,14 @@ public class FlashLight : MonoBehaviour
 
     void Update()
     {
-         if (Input.GetKeyDown(KeyCode.Mouse0)) 
+        if(!PauseMenu.isPaused)
         {
-            ToggleFlash();
+            if (Input.GetKeyDown(KeyCode.Mouse0)) 
+            {
+             ToggleFlash();
+            }
         }
+    
         // Reduce battery only if flashlight is on
         if (isFlashlightOn)
         {

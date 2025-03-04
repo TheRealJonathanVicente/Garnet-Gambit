@@ -7,18 +7,25 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
     public GameObject guardPrefab;
-    public Transform spawnPosition;
+    public Transform[] spawnPositions; // Array of spawn positions for guards
     public GameObject mainPlayer;
 
     public int amountOfGuards;
-   
-    public Transform[] newPoints;
+
+    [System.Serializable]
+    public class GuardWaypoints
+    {
+        public Transform[] waypoints; // Waypoints for a single guard
+    }
+
+    public List<GuardWaypoints> waypointsList; // List of waypoint sets for each guard
+
     void Awake()
     {
-        if(Instance == null)
+        if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(this.gameObject); //Keeps the GameManager across scenes
+            DontDestroyOnLoad(this.gameObject); // Keeps the GameManager across scenes
         }
         else
         {
@@ -28,12 +35,13 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        if(SceneManager.GetActiveScene().name == "Hallway With Guard");
+        if (SceneManager.GetActiveScene().name == "Hallway With Guard")
         {
-            //SpawnGuard();
+            SpawnGuards();
         }
     }
-   public void PlayGame()
+
+    public void PlayGame()
     {
         SceneManager.LoadScene("Hallway With Guard");
     }
@@ -42,30 +50,45 @@ public class GameManager : MonoBehaviour
     {
         Application.Quit();
     }
-    
+
     public void Credits()
     {
         SceneManager.LoadScene("Credits");
     }
-
-    public void SpawnGuard()
+    public void MainMenu()
     {
-        GameObject tempObject = Instantiate(guardPrefab, spawnPosition.position, Quaternion.identity);
+        SceneManager.LoadScene("MainMenu");
+    }
+    public void Restart()
+    {
+        SceneManager.LoadScene("Hallway With Guard");
+    }
 
-        PathFinding path = tempObject.GetComponent<PathFinding>();
-        EnemyVision vision = tempObject.GetComponent<EnemyVision>();
+    public void SpawnGuards()
+    {
+        // Ensure the number of guards does not exceed the number of spawn positions
+        int guardsToSpawn = Mathf.Min(amountOfGuards, spawnPositions.Length);
 
-
-
-        if(path != null)
+        for (int i = 0; i < guardsToSpawn; i++)
         {
-            path.player = mainPlayer;
-            path.waypoints  = newPoints;
-        }
+            // Spawn a guard at the corresponding spawn position
+            GameObject tempObject = Instantiate(guardPrefab, spawnPositions[i].position, Quaternion.identity);
 
-        if(vision != null)
-        {
-            vision.Player = mainPlayer;
+            // Get the PathFinding and EnemyVision components
+            PathFinding path = tempObject.GetComponent<PathFinding>();
+            EnemyVision vision = tempObject.GetComponent<EnemyVision>();
+
+            // Assign the player and waypoints to the guard
+            if (path != null && i < waypointsList.Count) // Ensure there are waypoints for this guard
+            {
+                path.player = mainPlayer;
+                path.waypoints = waypointsList[i].waypoints; // Assign waypoints for this guard
+            }
+
+            if (vision != null)
+            {
+                vision.Player = mainPlayer;
+            }
         }
     }
 }

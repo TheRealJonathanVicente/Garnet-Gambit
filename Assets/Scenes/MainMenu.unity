@@ -1048,6 +1048,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 460e1a9b8956f704ba5a3fcb942f61e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  guardPrefab: {fileID: 0}
+  spawnPositions: []
+  mainPlayer: {fileID: 0}
+  amountOfGuards: 0
+  waypointsList: []
 --- !u!1 &1725669605
 GameObject:
   m_ObjectHideFlags: 0
