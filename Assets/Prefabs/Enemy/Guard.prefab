@@ -323,11 +323,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46b7cdfe74dc2c84ca3c02b6433cff28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  guardAudio: {fileID: 0}
+  player: {fileID: 0}
+  noticeMark: {fileID: 0}
+  childTransform: {fileID: 0}
+  anim: {fileID: 0}
   waypoints:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  player: {fileID: 0}
 --- !u!114 &5120047668422319693
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -342,8 +346,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   detectRange: 2
   detectAngle: 45
-  allTrue: 0
   Player: {fileID: 0}
+  isInAngle: 0
+  isInRange: 0
+  isNotHidden: 0
+  allTrue: 0
 --- !u!1001 &5071219920952997340
 PrefabInstance:
   m_ObjectHideFlags: 0
