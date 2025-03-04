@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public GameObject mainPlayer;
 
     public int amountOfGuards;
+   // private List <GameObjects> guardList;  fix
     public Transform[] newPoints;
     void Awake()
     {
@@ -29,7 +30,7 @@ public class GameManager : MonoBehaviour
     {
         if(SceneManager.GetActiveScene().name == "Hallway With Guard");
         {
-            SpawnGuard();
+            //SpawnGuard();
         }
     }
    public void PlayGame()
@@ -47,9 +48,13 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("Credits");
     }
 
-    public void SpawnGuard()
+   /* public void SpawnGuard()
     {
-        GameObject tempObject = Instantiate(guardPrefab, spawnPosition.position, Quaternion.identity);
+        List <GameObject> guardList = new List <GameObject>()
+        {
+            GameObject tempObject = Instantiate(guardPrefab, spawnPosition.position, Quaternion.identity);
+        }
+        //GameObject tempObject = Instantiate(guardPrefab, spawnPosition.position, Quaternion.identity);
 
         PathFinding path = tempObject.GetComponent<PathFinding>();
         EnemyVision vision = tempObject.GetComponent<EnemyVision>();
@@ -58,9 +63,13 @@ public class GameManager : MonoBehaviour
 
         if(path != null)
         {
-            vision.Player = mainPlayer;
             path.player = mainPlayer;
             path.waypoints  = newPoints;
         }
-    }
+
+        if(vision != null)
+        {
+            vision.Player = mainPlayer;
+        }
+    }*/
 }
