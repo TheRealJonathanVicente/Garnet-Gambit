@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2960632056116009944
 Transform:
   m_ObjectHideFlags: 0
@@ -164,6 +164,7 @@ GameObject:
   - component: {fileID: 8905224310841443881}
   - component: {fileID: 7912080858021416117}
   - component: {fileID: 7637012420879003498}
+  - component: {fileID: 9152850687682978544}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -221,7 +222,7 @@ Camera:
     height: 1
   near clip plane: 0.01
   far clip plane: 1000
-  field of view: 60
+  field of view: 70
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -305,6 +306,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mouseSensitivity: 0.1
   controllerSensitivity: 300
+  smoothing: 9
   player: {fileID: 2875557372899902697}
 --- !u!114 &7637012420879003498
 MonoBehaviour:
@@ -320,6 +322,66 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactorSource: {fileID: 4916975694717827206}
   interactRange: 3
+--- !u!114 &9152850687682978544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6038046886650121303}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 948f4100a11a5c24981795d21301da5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  volumeTrigger: {fileID: 4916975694717827206}
+  volumeLayer:
+    serializedVersion: 2
+    m_Bits: 1024
+  stopNaNPropagation: 1
+  finalBlitToCameraTarget: 0
+  antialiasingMode: 0
+  temporalAntialiasing:
+    jitterSpread: 0.75
+    sharpness: 0.25
+    stationaryBlending: 0.95
+    motionBlending: 0.85
+  subpixelMorphologicalAntialiasing:
+    quality: 2
+  fastApproximateAntialiasing:
+    fastMode: 0
+    keepAlpha: 0
+  fog:
+    enabled: 1
+    excludeSkybox: 1
+  debugLayer:
+    lightMeter:
+      width: 512
+      height: 256
+      showCurves: 1
+    histogram:
+      width: 512
+      height: 256
+      channel: 3
+    waveform:
+      exposure: 0.12
+      height: 256
+    vectorscope:
+      size: 256
+      exposure: 0.12
+    overlaySettings:
+      linearDepth: 0
+      motionColorIntensity: 4
+      motionGridSize: 64
+      colorBlindnessType: 0
+      colorBlindnessStrength: 1
+  m_Resources: {fileID: 11400000, guid: d82512f9c8e5d4a4d938b575d47f88d4, type: 2}
+  m_ShowToolkit: 1
+  m_ShowCustomSorter: 0
+  breakBeforeColorGrading: 0
+  m_BeforeTransparentBundles: []
+  m_BeforeStackBundles: []
+  m_AfterStackBundles: []
 --- !u!1 &7156829717631670431
 GameObject:
   m_ObjectHideFlags: 0
@@ -335,7 +397,6 @@ GameObject:
   - component: {fileID: 2741376520287970700}
   - component: {fileID: 4408980031907822899}
   - component: {fileID: 8318183235015139246}
-  - component: {fileID: 6849595697429192855}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -457,7 +518,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 1
-  m_Constraints: 80
+  m_Constraints: 112
   m_CollisionDetection: 2
 --- !u!114 &4408980031907822899
 MonoBehaviour:
@@ -476,8 +537,8 @@ MonoBehaviour:
   maxStamina: 100
   runCost: 25
   chargeRate: 33
-  speed: 10
-  sprintSpeed: 12
+  speed: 50
+  sprintSpeed: 70
   jumpForce: 13
   rb: {fileID: 2741376520287970700}
   playerCam: {fileID: 6682427013133671810}
@@ -584,18 +645,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &6849595697429192855
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7156829717631670431}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b01b03ed8dae0324298184acb16d0bdd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &9015063198970977058
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -711,6 +760,7 @@ MonoBehaviour:
   maxBatteryLife: 100
   burnCost: 5.5
   replaceBattery: 0
+  batteryRecharge: 50
   source: {fileID: 1507272513803167706}
 --- !u!82 &1507272513803167706
 AudioSource:
