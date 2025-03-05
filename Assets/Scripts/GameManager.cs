@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        if (SceneManager.GetActiveScene().name == "Hallway With Guard")
+        if (SceneManager.GetActiveScene().name == "ArtPrototype")
         {
             SpawnGuards();
         }

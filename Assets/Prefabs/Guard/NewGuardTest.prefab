@@ -246,8 +246,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.08930158, y: 0.19767709, z: 0.06478211}
-  m_Center: {x: 0.0031307829, y: 0.09636168, z: 0.006839285}
+  m_Size: {x: 0.08930158, y: 0.2033445, z: 0.06478211}
+  m_Center: {x: 0.0031307822, y: 0.09352797, z: 0.0068392837}
 --- !u!195 &7394508786083705694
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -258,11 +258,11 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: -1372625422
   m_Radius: 0.1
-  m_Speed: 8
+  m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 60
-  m_StoppingDistance: 0
+  m_StoppingDistance: 0.1
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -295,7 +295,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 96
   m_CollisionDetection: 2
 --- !u!114 &7055876063824302661
 MonoBehaviour:
@@ -318,7 +318,6 @@ MonoBehaviour:
   waypoints:
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 0}
 --- !u!114 &4503318871018275758
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -331,12 +330,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d4a7c33ab49c7f49a08f5a478110e28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detectRange: 13.23
+  detectRange: 3
   detectAngle: 45
   Player: {fileID: 0}
   isInAngle: 0
   isInRange: 0
-  isNotHidden: 0
+  isNotHidden: 1
   allTrue: 0
 --- !u!82 &7819028272672984294
 AudioSource:
