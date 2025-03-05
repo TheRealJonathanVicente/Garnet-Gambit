@@ -16,5 +16,7 @@ public class ReloadScene : MonoBehaviour
     void ReloadGame()
     {
         SceneManager.LoadScene("GameOver"); // Reload current scene
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 }
