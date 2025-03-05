@@ -63,7 +63,7 @@ public class FlashLight : MonoBehaviour
 
         batteryBar.fillAmount = batteryLife / maxBatteryLife;
 
-        ReplenishBattery();
+       // ReplenishBattery();
     }
 
     public void ToggleFlash()
@@ -75,7 +75,7 @@ public class FlashLight : MonoBehaviour
             source.Play();
         }
     }
-    public void ReplenishBattery()
+    /*public void ReplenishBattery()
     {
         if(battery.newBattery == true && batteryLife < maxBatteryLife)
         {
@@ -88,5 +88,5 @@ public class FlashLight : MonoBehaviour
 
         }
     
-    }
+    }*/
 }

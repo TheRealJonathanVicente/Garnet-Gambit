@@ -29,12 +29,12 @@ public class EnemyVision : MonoBehaviour
         if(Vector3.Distance(transform.position, Player.transform.position) < detectRange)
         {
             isInRange = true;
-            Debug.Log("Player in range");
+            //Debug.Log("Player in range");
 
         }
         else
         {
-            Debug.Log("Player out of range");
+            //Debug.Log("Player out of range");
         }
         BehindObject();
         InAngle();
@@ -42,14 +42,14 @@ public class EnemyVision : MonoBehaviour
         //If all true, Bool is true,
         if(isInAngle && isInRange && isNotHidden)
         {
-            Debug.Log("ALL TRUE");
+           // Debug.Log("ALL TRUE");
             allTrue = true;
         }
         else
         {
             allTrue = false;
         }
-        OnDrawGizmos();
+        //OnDrawGizmos();
     }
 
     void BehindObject()
@@ -60,16 +60,16 @@ public class EnemyVision : MonoBehaviour
             if(hit.transform == Player.transform) //if hit true
             {
                 isNotHidden = true;
-                Debug.Log("Player not hidden");
+                //Debug.Log("Player not hidden");
             }
             else 
             {
-                Debug.Log("Player is Hidden");
+               // Debug.Log("Player is Hidden");
             }
         }
         else
         {
-            Debug.Log("Hit nothing, can't find player");
+           // Debug.Log("Hit nothing, can't find player");
         }
     }
 
@@ -81,11 +81,11 @@ public class EnemyVision : MonoBehaviour
         if(angle < detectAngle && angle > -1 * detectAngle)
         {
             isInAngle = true;
-            Debug.Log("In in angle");
+          //  Debug.Log("In in angle");
         }
         else
         {
-            Debug.Log("Not in Angle");
+          //  Debug.Log("Not in Angle");
         }
 
     }

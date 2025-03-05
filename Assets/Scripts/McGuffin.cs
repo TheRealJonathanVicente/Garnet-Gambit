@@ -5,24 +5,16 @@ using UnityEngine;
 public class McGuffin : MonoBehaviour, IInteractable
 {
     public GameObject Item;
-    private bool hasItem = false;
     public AudioSource mcGuffinSound;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public static int winCon = 0; 
+  
     public void Interact()
     {
         mcGuffinSound.Play();
         Debug.Log("Found the McGuffin!");
-        hasItem = true;
+        winCon += 1;
+        Debug.Log(winCon);
         Item.SetActive(false);
+        
     }
 }
