@@ -86,5 +86,57 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: aebb654af50a5e24a9e5e0f5180980d8,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6637808498790618449}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: aebb654af50a5e24a9e5e0f5180980d8,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4454869379707507219}
   m_SourcePrefab: {fileID: 100100000, guid: aebb654af50a5e24a9e5e0f5180980d8, type: 3}
+--- !u!1 &5452202230819711598 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: aebb654af50a5e24a9e5e0f5180980d8,
+    type: 3}
+  m_PrefabInstance: {fileID: 5146335484751173439}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6637808498790618449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5452202230819711598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IsGlobal: 1
+  priority: 0
+  blendDistance: 0
+  weight: 1
+  sharedProfile: {fileID: 11400000, guid: 081d90f690c7ffc45a10bd792837447b, type: 2}
+--- !u!65 &4454869379707507219
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5452202230819711598}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.019531481, y: 0.06566128, z: 0.019531483}
+  m_Center: {x: -9.313226e-10, y: 0.0000010766089, z: 0}
