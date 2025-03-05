@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public GameObject guardPrefab;
     public Transform[] spawnPositions; // Array of spawn positions for guards
     public GameObject mainPlayer;
+    public GameObject canvas;
 
     public int amountOfGuards;
 
@@ -22,10 +23,11 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
+
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(this.gameObject); // Keeps the GameManager across scenes
+             // Keeps the GameManager across scenes
         }
         else
         {
@@ -38,12 +40,14 @@ public class GameManager : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "ArtPrototype")
         {
             SpawnGuards();
+            DontDestroyOnLoad(this.gameObject);
         }
     }
 
     public void PlayGame()
     {
-        SceneManager.LoadScene("Hallway With Guard");
+        SceneManager.LoadScene("ArtPrototype");
+        DontDestroyOnLoad(canvas);
     }
 
     public void QuitGame()
