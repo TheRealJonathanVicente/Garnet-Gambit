@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviour
     public Transform flashLight;
     public TextMeshProUGUI speedText;
     public AudioSource playerAudioSource;
+    public Animator playerAnim;
 
     private Vector3 lastPosition;
     private Vector2 movementInput; // Stores movement direction from Input System
@@ -98,6 +99,15 @@ public class PlayerController : MonoBehaviour
 
         Vector3 moveDirectionRelCam = (forward * verticalInput + right * horizontalInput).normalized;
 
+        if(moveDirectionRelCam.magnitude > 0)
+        {
+            playerAnim.SetBool("IsRunning", true);
+        }
+        else
+        {
+            playerAnim.SetBool("IsRunning", false);
+        }
+
         float currentSpeed = isSprinting && stamina > 0 ? sprintSpeed : speed;
         
        // rb.MovePosition(transform.position + moveDirectionRelCam * currentSpeed * Time.fixedDeltaTime);
@@ -105,14 +115,6 @@ public class PlayerController : MonoBehaviour
 
        transform.position = Vector3.Lerp(transform.position, targetPosition, 0.1f); // 0.1f is the smoothing factor, can be adjusted
 
-        if (moveDirectionRelCam.magnitude > 0)
-        {
-            if (!playerAudioSource.isPlaying) playerAudioSource.Play();
-        }
-        else
-        {
-            if (playerAudioSource.isPlaying) playerAudioSource.Stop(); 
-        }
 
         // Sprint logic
         if (isSprinting && stamina > 0)
