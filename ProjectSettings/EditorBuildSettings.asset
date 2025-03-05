@@ -9,8 +9,8 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: 803805f9a37b03243900140b897dc43c
   - enabled: 1
-    path: Assets/Scenes/Hallway With Guard.unity
-    guid: 65a9decf16454114f9b0142c0bb01706
+    path: Assets/Scenes/ArtPrototype.unity
+    guid: 092e4229f0e936c43a75fe2ae90cb485
   - enabled: 1
     path: Assets/Scenes/GameOver.unity
     guid: 50a0723794c47e14abcdd6be1867f716
@@ -23,7 +23,4 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Credits.unity
     guid: 905d5425f42fd424fa597f80f0109eb0
-  - enabled: 1
-    path: Assets/Scenes/ArtPrototype.unity
-    guid: 092e4229f0e936c43a75fe2ae90cb485
   m_configObjects: {}

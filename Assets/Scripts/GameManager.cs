@@ -40,7 +40,6 @@ public class GameManager : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "ArtPrototype")
         {
             SpawnGuards();
-            DontDestroyOnLoad(this.gameObject);
         }
     }
 
@@ -65,7 +64,7 @@ public class GameManager : MonoBehaviour
     }
     public void Restart()
     {
-        SceneManager.LoadScene("Hallway With Guard");
+        SceneManager.LoadScene("ArtPrototype");
     }
 
     public void SpawnGuards()

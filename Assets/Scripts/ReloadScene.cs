@@ -13,16 +13,8 @@ public class ReloadScene : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D other) // Use OnTriggerEnter2D for 2D collisions
-    {
-        if (other.CompareTag("Player"))
-        {
-            ReloadGame();
-        }
-    }
-
     void ReloadGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name); // Reload current scene
+        SceneManager.LoadScene("GameOver"); // Reload current scene
     }
 }
