@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        if (SceneManager.GetActiveScene().name == "ArtPrototype")
+        if (SceneManager.GetActiveScene().name == "MainLevel")
         {
             SpawnGuards();
         }
@@ -47,7 +47,7 @@ public class GameManager : MonoBehaviour
 
     public void PlayGame()
     {
-        SceneManager.LoadScene("ArtPrototype");
+        SceneManager.LoadScene("MainLevel");
         DontDestroyOnLoad(canvas);
     }
 
@@ -68,7 +68,7 @@ public class GameManager : MonoBehaviour
     }
     public void Restart()
     {
-        SceneManager.LoadScene("ArtPrototype");
+        SceneManager.LoadScene("MainLevel");
     }
     
 
@@ -102,7 +102,7 @@ public class GameManager : MonoBehaviour
 
     public void MenuQuit()
     {
-      if (SceneManager.GetActiveScene().name == "ArtPrototype"   && Input.GetKeyDown(KeyCode.Escape))
+      if (SceneManager.GetActiveScene().name == "MainLevel"   && Input.GetKeyDown(KeyCode.Escape))
       {
         QuitGame();
       }

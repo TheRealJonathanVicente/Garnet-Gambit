@@ -7,7 +7,7 @@ public class GameOver : MonoBehaviour
 {
     public void PlayGame()
     {
-        SceneManager.LoadScene("Hallway With Guard");
+        SceneManager.LoadScene("MainLevel");
     }
 
     public void MainMenu()
