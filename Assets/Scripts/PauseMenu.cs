@@ -2,11 +2,36 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem; // Required for the new Input System
 
 public class PauseMenu : MonoBehaviour
 {
     public GameObject pauseMenu; // Assign the pause menu UI panel in the Inspector
     public static bool isPaused; // Track the pause state
+
+    private PlayerControls controls; // Reference to the PlayerControls generated class
+
+    private void Awake()
+    {
+        // Initialize the PlayerControls
+        controls = new PlayerControls();
+    }
+
+    private void OnEnable()
+    {
+        // Enable the input actions
+        controls.Enable();
+        // Subscribe to the pause action
+        controls.Gameplay.Pause.performed += _ => TogglePause();
+    }
+
+    private void OnDisable()
+    {
+        // Disable the input actions
+        controls.Disable();
+        // Unsubscribe from the pause action
+        controls.Gameplay.Pause.performed -= _ => TogglePause();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -14,20 +39,16 @@ public class PauseMenu : MonoBehaviour
         pauseMenu.SetActive(false); // Ensure the pause menu is hidden at the start
     }
 
-    // Update is called once per frame
-    void Update()
+    // Toggles the pause state
+    private void TogglePause()
     {
-        // Toggle pause when Escape is pressed
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (isPaused)
         {
-            if (isPaused)
-            {
-                ResumeGame();
-            }
-            else
-            {
-                PauseGame();
-            }
+            ResumeGame();
+        }
+        else
+        {
+            PauseGame();
         }
     }
 

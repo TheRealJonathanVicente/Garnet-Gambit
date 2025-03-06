@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public GameObject mainPlayer;
     public GameObject canvas;
     public GameObject musicThing;
+    public GameObject instructions; 
 
     public int amountOfGuards;
 

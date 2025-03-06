@@ -82,7 +82,6 @@ public class PlayerController : MonoBehaviour
 
         float tempSpeed = ((rb.position - lastPosition).magnitude) / Time.fixedDeltaTime;
         lastPosition = rb.position;
-        speedText.text = "Speed: " + tempSpeed.ToString("F2");
     }
 
     void Move()
