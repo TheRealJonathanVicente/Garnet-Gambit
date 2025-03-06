@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public Transform[] spawnPositions; // Array of spawn positions for guards
     public GameObject mainPlayer;
     public GameObject canvas;
+    public GameObject musicThing;
 
     public int amountOfGuards;
 
@@ -57,6 +58,15 @@ public class GameManager : MonoBehaviour
     public void Credits()
     {
         SceneManager.LoadScene("Credits");
+        if (Instance == null)
+        {
+            Instance = this;
+             // Keeps the GameManager across scenes
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
     public void MainMenu()
     {
@@ -66,6 +76,7 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene("ArtPrototype");
     }
+    
 
     public void SpawnGuards()
     {
@@ -93,5 +104,13 @@ public class GameManager : MonoBehaviour
                 vision.Player = mainPlayer;
             }
         }
+    }
+
+    public void MenuQuit()
+    {
+      if (SceneManager.GetActiveScene().name == "ArtPrototype"   && Input.GetKeyDown(KeyCode.Escape))
+      {
+        QuitGame();
+      }
     }
 }
