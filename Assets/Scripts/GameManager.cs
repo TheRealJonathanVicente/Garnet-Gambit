@@ -57,16 +57,9 @@ public class GameManager : MonoBehaviour
 
     public void Credits()
     {
+        
         SceneManager.LoadScene("Credits");
-        if (Instance == null)
-        {
-            Instance = this;
-             // Keeps the GameManager across scenes
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        
     }
     public void MainMenu()
     {

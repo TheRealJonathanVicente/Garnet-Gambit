@@ -13,7 +13,7 @@ public class SpawnExit : MonoBehaviour
     {
         //Debug.Log("winCon value: " + McGuffin.winCon);
 
-        if(McGuffin.winCon < 3)
+        if(McGuffin.winCon < 6)
         {
            Exit.SetActive(false);  
         }
