@@ -32,6 +32,8 @@ public class SpawnExit : MonoBehaviour
             // Load the "Win" scene
             Debug.Log("YopU Win");
             SceneManager.LoadScene("Win");
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
     }
 }
