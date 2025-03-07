@@ -69,6 +69,7 @@ public class GameManager : MonoBehaviour
     public void Restart()
     {
         SceneManager.LoadScene("MainLevel");
+        McGuffin.winCon = 0;
     }
     
 
